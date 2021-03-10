@@ -5,8 +5,6 @@
 #include <ctime>
 #include "me_functions.h"
 
-using namespace std;
-
 string generate();
 
 int main()
@@ -16,19 +14,19 @@ int main()
     bool more_names{true};
     do
     {
-        cout << "How many names to generate: ";
+        std::cout << "How many names to generate: ";
         cin >> number_of_names;
-		cout << "---------------------------------->"<< endl;
+        std::cout << "---------------------------------->"<< std::endl;
         for(size_t i {0}; i<number_of_names; i++)
         {
             string name = generate();
-            cout << name << endl;
+            std::cout << name << std::endl;
         }
         bool valid_response{false};
-		cout<<endl;
+        std::cout<<std::endl;
         do
         {
-            cout << "Generate More? (Y/N): ";
+            std::cout << "Generate More? (Y/N): ";
             char response{};
             cin >> response;
             if(response == 'Y' ||response == 'y') valid_response = true;
@@ -36,12 +34,12 @@ int main()
             {
                 valid_response = true;
                 more_names = false;
-                cout << "Goodbye..."<<endl;
+                std::cout << "Goodbye..."<<std::endl;
             }
-            else cout<< "invalid response..." << endl;
+            else std::cout<< "invalid response..." << std::endl;
         }while(!valid_response);
     }while(more_names);
-    cout << endl;
+    std::cout << std::endl;
     return 0;
 }
 
