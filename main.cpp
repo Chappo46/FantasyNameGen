@@ -3,9 +3,11 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
-#include "me_functions.h"
 
-string generate();
+std::string generate();
+bool probability_over(int over, int out_of);
+bool is_vowel(char letter);
+bool validate_letter(char new_letter, char previous_letter);
 
 int main()
 {
@@ -15,11 +17,11 @@ int main()
     do
     {
         std::cout << "How many names to generate: ";
-        cin >> number_of_names;
+        std::cin >> number_of_names;
         std::cout << "---------------------------------->"<< std::endl;
         for(size_t i {0}; i<number_of_names; i++)
         {
-            string name = generate();
+            std::string name = generate();
             std::cout << name << std::endl;
         }
         bool valid_response{false};
@@ -28,7 +30,7 @@ int main()
         {
             std::cout << "Generate More? (Y/N): ";
             char response{};
-            cin >> response;
+            std::cin >> response;
             if(response == 'Y' ||response == 'y') valid_response = true;
             else if(response == 'N' || response == 'n')
             {
@@ -43,9 +45,9 @@ int main()
     return 0;
 }
 
-string generate()
+std::string generate()
 {
-    string name{};
+    std::string name{};
     size_t number_of_letters  = (rand() % 7) + 3;
     for(size_t j {0}; j<number_of_letters; j++)
     {
