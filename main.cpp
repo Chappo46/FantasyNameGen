@@ -4,6 +4,16 @@
 #include <cstdlib>
 #include <ctime>
 
+/**
+ * Fantasy Name Generator
+ * Created by Patrick Murphy
+ * 
+ * Creates a set of random names based on random input and a set
+ * of rules. 
+ * Includes a menu where the user can specify how many names they would like to input.
+ */
+
+//Function Definitions
 std::string generate();
 bool probability_over(int over, int out_of);
 bool is_vowel(char letter);
@@ -19,18 +29,24 @@ int main()
         std::cout << "How many names to generate: ";
         std::cin >> number_of_names;
         std::cout << "---------------------------------->"<< std::endl;
+
         for(size_t i {0}; i<number_of_names; i++)
         {
             std::string name = generate();
             std::cout << name << std::endl;
         }
+
         bool valid_response{false};
+
         std::cout<<std::endl;
+
         do
         {
             std::cout << "Generate More? (Y/N): ";
+
             char response{};
             std::cin >> response;
+
             if(response == 'Y' ||response == 'y') valid_response = true;
             else if(response == 'N' || response == 'n')
             {
@@ -41,10 +57,14 @@ int main()
             else std::cout<< "invalid response..." << std::endl;
         }while(!valid_response);
     }while(more_names);
+
     std::cout << std::endl;
     return 0;
 }
 
+/**
+ * Generates and returns a random name.
+ */
 std::string generate()
 {
     std::string name{};
@@ -74,18 +94,18 @@ std::string generate()
     return name;
 }
 
-/*Determines if a letter is valid based on the previous letter.
- *The main filter for this random name generator.*/
+/**Determines if a letter is valid based on the previous letter.
+ *The main filter for this random name generator.
+ */
 bool validate_letter(char new_letter, char previous_letter)
 {
     if(previous_letter == 'Q' || previous_letter == 'q')
     {
-        if(new_letter == 'U' || new_letter == 'u') return true;
-        if(is_vowel(new_letter) && probability_over(80,100)) return true;
+        if((new_letter == 'U' || new_letter == 'u') && probability_over(20,100)) return true;
+        if(is_vowel(new_letter) && probability_over(85,100)) return true;
         return false;
     }
-    if(is_vowel(previous_letter) && !is_vowel(new_letter)) return true;
-    if(!is_vowel(previous_letter) && is_vowel(new_letter)) return true;
+    if(previous_letter=='M' && new_letter =='c' && probability_over(20,100)) return true;
     if(new_letter == 'H'||new_letter == 'h')
     {
         if((previous_letter == 'C' || previous_letter == 'c') && probability_over(20,100)) return true;
@@ -93,11 +113,16 @@ bool validate_letter(char new_letter, char previous_letter)
         if((previous_letter == 'T' || previous_letter == 't') && probability_over(20,100)) return true;
         if((previous_letter == 'P' || previous_letter == 'p') && probability_over(50,100)) return true;
     }
-    if(is_vowel(previous_letter) && is_vowel(new_letter) && probability_over(30,100)) return true;
-    if(!is_vowel(previous_letter) && !is_vowel(new_letter) && probability_over(98,100)) return true;
+    if(is_vowel(previous_letter) && !is_vowel(new_letter) && probability_over(20,100)) return true;
+    if(!is_vowel(previous_letter) && is_vowel(new_letter) && probability_over(20,100)) return true;
+    if(is_vowel(previous_letter) && is_vowel(new_letter) && probability_over(45,100)) return true;
+    if(!is_vowel(previous_letter) && !is_vowel(new_letter) && probability_over(998,1000)) return true;
     return false;
 }
 
+/**
+ * Returns true if a specific character is a vowel
+ */
 bool is_vowel(char letter)
 {
     bool vowel{false};
@@ -111,10 +136,12 @@ bool is_vowel(char letter)
     if(letter == 105)vowel = true;
     if(letter == 111)vowel = true;
     if(letter == 117)vowel = true;
-//    if(vowel) cout << letter << endl;
     return vowel;
 }
 
+/**
+ * Returns true randomly at with a probablility rate of over/out_of. 
+ */
 bool probability_over(int over, int out_of)
 {
     return rand()% out_of + 1 > over;
